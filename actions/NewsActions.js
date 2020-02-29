@@ -1,19 +1,20 @@
 import axios from 'axios';
+import {NEWS_API_KEY} from '../const';
 import * as Types from './actionTypes';
 
 export const fetchNews = () => async dispatch => {
-  const accessToken = '';
-  const apiEndPoint = '';
+  const apiEndPoint = `http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${NEWS_API_KEY}`;
   axios
     .get(apiEndPoint, {
       headers: {
-        Authorization: `${accessToken}`,
+        'Content-Type': 'application/json',
       },
     })
     .then(response => {
-      dispatch({type: Types.AUTH_USER, payload: response.data});
+      console.log('response', response.data.articles);
+      dispatch({type: Types.HEADLINES, payload: response.data.articles});
     })
     .catch(error => {
-      console.log('error', error.response);
+      console.log('error', error);
     });
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/Home';
+import HeadlineStack from './HeadlineStack';
 import ProfileScreen from '../screens/Profile';
 import AboutScreen from '../screens/About';
 import NewsListScreen from '../screens/NewsList';
@@ -12,10 +12,8 @@ const TabNavigation = () => (
   <Tab.Navigator
     screenOptions={({route}) => ({
       tabBarIcon: ({focused, color, size}) => {
-        console.log('route', route);
         let iconName;
-
-        if (route.name === 'Top Headlines') {
+        if (route.name === 'Headlines') {
           iconName = 'book';
         } else if (route.name === 'News') {
           iconName = 'bars';
@@ -31,7 +29,7 @@ const TabNavigation = () => (
       activeTintColor: '#3498DB',
       inactiveTintColor: '#85929E',
     }}>
-    <Tab.Screen name="Top Headlines" component={HomeScreen} />
+    <Tab.Screen name="Headlines" component={HeadlineStack} />
     <Tab.Screen name="News" component={NewsListScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
