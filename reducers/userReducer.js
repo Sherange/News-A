@@ -1,7 +1,7 @@
 import * as Types from '../actions/actionTypes';
 
 const initialState = {
-  authUser: {},
+  authUser: null,
   isFetching: false,
 };
 
@@ -16,6 +16,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+      };
+    case Types.AUTH_USER:
+      return {
+        ...state,
+        authUser: action.payload,
       };
     default:
       return state;
