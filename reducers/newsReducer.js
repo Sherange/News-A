@@ -2,6 +2,7 @@ import * as Types from '../actions/actionTypes';
 
 const initialState = {
   headlines: [],
+  news: [],
   isFetching: false,
 };
 
@@ -21,6 +22,11 @@ const newsReducer = (state = initialState, action) => {
       return {
         ...state,
         headlines: action.payload,
+      };
+    case Types.NEWS_LIST:
+      return {
+        ...state,
+        news: action.payload,
       };
     default:
       return state;

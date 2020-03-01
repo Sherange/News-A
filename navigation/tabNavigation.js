@@ -2,7 +2,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HeadlineStack from './HeadlineStack';
 import ProfileScreen from '../screens/Profile';
-import AboutScreen from '../screens/About';
 import NewsListScreen from '../screens/NewsList';
 import Icon from 'react-native-vector-icons/AntDesign';
 

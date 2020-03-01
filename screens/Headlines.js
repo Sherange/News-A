@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {View, StyleSheet, FlatList, Linking} from 'react-native';
-import {fetchNews} from '../actions/NewsActions';
+import {fetchHeadLines} from '../actions/NewsActions';
 import ListItem from '../components/ListItem';
 
 class Headlines extends React.Component {
@@ -13,7 +13,7 @@ class Headlines extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchNews();
+    this.props.fetchHeadLines();
   }
 
   handleLink(link) {
@@ -78,7 +78,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchNews: () => dispatch(fetchNews()),
+  fetchHeadLines: () => dispatch(fetchHeadLines()),
 });
 
 // eslint-disable-next-line prettier/prettier
