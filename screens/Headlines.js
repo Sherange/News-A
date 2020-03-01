@@ -1,14 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-  View,
-  StyleSheet,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, FlatList, Linking} from 'react-native';
 import {fetchNews} from '../actions/NewsActions';
+import ListItem from '../components/ListItem';
 
 class Headlines extends React.Component {
   constructor(props) {
@@ -22,36 +16,27 @@ class Headlines extends React.Component {
     this.props.fetchNews();
   }
 
+  handleLink(link) {
+    Linking.canOpenURL(link)
+      .then(supported => {
+        if (!supported) {
+          console.log("Can't handle url: " + link);
+        } else {
+          return Linking.openURL(link);
+        }
+      })
+      .catch(err => console.error('An error occurred', err));
+  }
+
   render() {
-    console.log('headlines', this.props.headlines);
     return (
       <View style={styles.pageWrapper}>
         <FlatList
           data={this.props.headlines}
           keyExtractor={item => item.title}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity style={styles.itemContainer}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={{
-                      uri: item.urlToImage
-                        ? item.urlToImage
-                        : 'https://x.kinja-static.com/assets/images/logos/placeholders/default.png',
-                    }}
-                    style={styles.imageStyle}
-                  />
-                </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.titleText}>{item.title}</Text>
-                  <Text style={styles.subTitle}>
-                    {item.source.name}
-                    {item.author ? ` - ${item.author}` : null}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={({item}) => (
+            <ListItem item={item} handleLink={this.handleLink.bind(this)} />
+          )}
         />
       </View>
     );
@@ -59,9 +44,6 @@ class Headlines extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  pageWrapper: {
-    flex: 1,
-  },
   itemContainer: {
     flexDirection: 'row',
     margin: 10,
